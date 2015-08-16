@@ -1,0 +1,27 @@
+{
+    "name": "niehztog/math_plane",
+    "description": "Package offering class representation of methematical planes",
+    "authors": [
+        {
+            "name": "Nils Gotzhein",
+            "email": "nilsgotzhein@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Math_Plane\\": "src/Math_Plane/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Niehztog/Math_Vector"
+        }
+    ],
+    "require": {
+        "pear/Math_Vector": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
