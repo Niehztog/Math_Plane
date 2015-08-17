@@ -7,8 +7,8 @@ namespace Math_Plane;
  */
 class Plane
 {
-    const EPSILON_DISTANCE = 3.7539393815679E-9;
-    
+    const EPSILON_DISTANCE = 3.7830432120245E-9;
+
     const SIDE_ONPLANE = 1;
     const SIDE_FRONT = 2;
     const SIDE_BACK = 3;
@@ -66,7 +66,7 @@ class Plane
         $n->normalize();
         return $n;
     }
-    
+
     /**
      * Its important to be clear about on which side of the equation D is intended to be:
      *  - same side as normal vector: dotproduct has to be multiplied with -1
@@ -96,11 +96,15 @@ class Plane
     public function calculateSideOfPointVector(\Math_Vector3 $v)
     {
         $distance = $this->calculateDistanceToPointVector($v);
+
         if (-self::EPSILON_DISTANCE > $distance) {
+            if (false !== strpos((string)$distance, 'E-')) {
+                trigger_error(sprintf('Found very small distance (%1$.10f / %1$s) between point and plane, assuming point outside plane(=skipping), might be wrong', (string)$distance), E_USER_WARNING);
+            }
             return self::SIDE_BACK;
         } elseif (self::EPSILON_DISTANCE < $distance) {
             if (false !== strpos((string)$distance, 'E-')) {
-                trigger_error(sprintf('Found very small distance (%s) between point and plane, assuming point outside plane(=skipping), might be wrong', (string)$distance), E_USER_WARNING);
+                trigger_error(sprintf('Found very small distance (%1$.10f / %1$s) between point and plane, assuming point outside plane(=skipping), might be wrong', (string)$distance), E_USER_WARNING);
             }
             return self::SIDE_FRONT;
         } else {
